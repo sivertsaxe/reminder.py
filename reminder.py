@@ -11,5 +11,5 @@ requests.post(
         "chat_id": CHAT_ID,
         "text": text
     },
-    timeout=20
+    timeout=19
 )
