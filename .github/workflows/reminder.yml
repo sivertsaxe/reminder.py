@@ -1,37 +1,10 @@
-name: Telegram Reminder
-
+name: Legacy Telegram Reminder (retired)
 on:
-  schedule:
-    - cron: "0 20 * * *"   # Existing schedule: 20:00 UTC
   workflow_dispatch:
-
 permissions:
-  contents: write
-
-concurrency:
-  group: telegram-reminder
-  cancel-in-progress: false
-
+  contents: read
 jobs:
-  run:
+  retired:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-      - run: pip install requests
-      - run: python reminder.py
-        env:
-          TG_TOKEN: ${{ secrets.TG_TOKEN }}
-          TG_CHAT_ID: ${{ secrets.TG_CHAT_ID }}
-      - name: Monthly activity to prevent scheduled-workflow inactivity
-        if: always()
-        run: |
-          if [ "$(date -u +%d)" = "01" ]; then
-            git config user.name 'github-actions[bot]'
-            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-            git commit --allow-empty -m 'Monthly reminder activity [skip ci]'
-            git push
-          fi
+      - run: echo 'Daily reminder moved to Cloudflare at 21:00 Europe/Berlin. This legacy workflow sends nothing.'
